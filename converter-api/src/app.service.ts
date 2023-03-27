@@ -8,8 +8,8 @@ export class AppService {
   @Inject(MessageService)
   private readonly messageService: MessageService;
 
-  getHello(): void {
-    console.log('⚡️[nest:server]');
+  getHello(): string {
+    return '⚡️[nest:server]';
   }
 
   initSQSConsumer(): void {

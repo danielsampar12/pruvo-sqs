@@ -40,7 +40,7 @@ export class ConversionService {
     return amount / rate;
   }
 
-  async convertFromUSD(amount: number, currency: string) {
+  async convertFromUSD(amount: number, currency: string): Promise<number> {
     const rate = await this.getCurrencyExchangeRateRelativeToUSD(currency);
 
     return rate * amount;
@@ -51,6 +51,8 @@ export class ConversionService {
     fromCurrency,
     toCurrency,
   }: ConversionRequestMessage) {
+    if (fromCurrency === toCurrency) return amount;
+
     if (fromCurrency === 'USD') {
       return await this.convertFromUSD(amount, toCurrency);
     }

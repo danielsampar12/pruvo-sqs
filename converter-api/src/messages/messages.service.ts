@@ -46,7 +46,7 @@ export class MessageService {
       messageBody.email,
       `Your currency conversion request has been completed: ${
         messageBody.amount
-      }${messageBody.fromCurrency} = ${conversion.toFixed()}${
+      }${messageBody.fromCurrency} = ${conversion.toFixed(2)}${
         messageBody.toCurrency
       }`,
     );
