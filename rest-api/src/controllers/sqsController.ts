@@ -3,7 +3,7 @@ import { Squiss } from "squiss-ts";
 const awsConfig = {
   accessKeyId: `dummy`,
   secretAccessKey: `dummy`,
-  region: "eu-west-1",
+  region: "dummy",
 };
 
 const squiss = new Squiss({
