@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+  currency_coverter:
+    build:
+      context: ./ConversionRateService
+      dockerfile: dev.dockerfile
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./ConversionRateService:/usr/local/bin/ConversionRateService
+  sqs:
+    image: roribio16/alpine-sqs
+    ports:
+      - '9324:9324'
+      - '9325:9325'
+  rest_api:
+    build:
+      context: ./RestAPI
+      dockerfile: dev.dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./RestAPI/.env
+    volumes:
+      - './RestAPI/dist:/src/dist'

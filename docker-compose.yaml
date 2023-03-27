@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  sqs:
+    image: roribio16/alpine-sqs
+    ports:
+      - "9324:9324"
+  nest-converter:
+    build:
+      context: ./converter-api
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - sqs
+  rest_api:
+    build:
+      context: ./rest-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - sqs
