@@ -38,12 +38,8 @@ interface ConversionRequestMessage extends ExchangeRateRequestMessage {
 
 type MessageBody = ExchangeRateRequestMessage | ConversionRequestMessage;
 
-async function sendSQSMessage(
-  body: MessageBody,
-  requestType: "conversion_request" | "exchange_rate_request"
-) {
+export async function sendSQSMessage(body: MessageBody) {
   const messageToSend = {
-    name: requestType,
     message: body,
   };
   try {
@@ -54,28 +50,5 @@ async function sendSQSMessage(
     return result;
   } catch (error) {
     console.log("Error:", error);
-  }
-}
-
-export async function sendConversionRequest(body: ConversionRequestMessage) {
-  try {
-    console.log("Sending conversion request");
-    const response = await sendSQSMessage(body, "conversion_request");
-    return response;
-  } catch (error) {
-    console.log("Error:", error);
-    throw new Error("Internal Server Error");
-  }
-}
-
-export async function sendExchangeRateRequest(
-  body: ExchangeRateRequestMessage
-) {
-  try {
-    const response = await sendSQSMessage(body, "exchange_rate_request");
-    return response;
-  } catch (error) {
-    console.log("Error:", error);
-    throw new Error("Internal Server Error");
   }
 }
