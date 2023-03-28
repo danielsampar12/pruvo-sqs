@@ -4,6 +4,8 @@ services:
     image: roribio16/alpine-sqs
     ports:
       - "9324:9324"
+    cpus: 1.0
+    mem_limit: "2g"
   nest-converter:
     build:
       context: ./converter-api
@@ -12,6 +14,8 @@ services:
       - "4000:4000"
     depends_on:
       - sqs
+    cpus: 1.0
+    mem_limit: "2g"
   rest_api:
     build:
       context: ./rest-api
@@ -20,3 +24,5 @@ services:
       - "3000:3000"
     depends_on:
       - sqs
+    cpus: 1.0
+    mem_limit: "2g"
