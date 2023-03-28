@@ -12,12 +12,13 @@ A Nestjs standalone application is used to listen on messages from the queue and
 
 For the purpose of local development, an Expressjs application is available in the `rest-api` folder. This server exposes the `/sqs/conversionRequest` post requests that will be placed in the SQS queue.
 
+In a production environment, I would use AWS API Gateway which has a direct integration with AWS SQS to expose these endpoints and save on the costs of a running REST Api server. The Nestjs application could be hosted on EC2 instances with the required memory & CPU limits, and controlled by an Auto Scaling Group that scales up to a maximum of 3 instances. The scaling metric could be either the average memory or CPU utilization of the EC2 instances. Or even use AWS Lambda for handling the messages.
+
 ## Frontend
 You can access http://localhost:3000 to use a UI for the request. It's just a simple page implemented with Alpine.js and Tailwind css.
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/54335160/228325712-d7fd6e0c-cabe-4521-81d6-432b8e474780.png">
 
-In a production environment, I would use AWS API Gateway which has a direct integration with AWS SQS to expose these endpoints and save on the costs of a running REST Api server. The Nestjs application could be hosted on EC2 instances with the required memory & CPU limits, and controlled by an Auto Scaling Group that scales up to a maximum of 3 instances. The scaling metric could be either the average memory or CPU utilization of the EC2 instances.
 
 # Prerequisites
 - Nodejs 16
