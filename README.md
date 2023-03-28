@@ -12,24 +12,28 @@ docker-compose up
 
 # Solution Architecture
 
-This solution uses an AWS SQS queue to defer user requests for asynchronous processing. (Uses alpine-sqs to simulate it locally).
+This solution uses an AWS SQS queue to defer user requests for asynchronous processing.
 
-A Nestjs standalone application is used to listen on messages from the queue and process them. This is the code in the `converter-api` folder.
+A Nestjs standalone application is used to listen on messages from the queue and process them. The code is in the `converter-api` folder.
 
-For the purpose of local development, an Expressjs application is available in the `rest-api` folder. This server exposes the `/sqs/conversionRequest` post requests that will be placed in the SQS queue.
+In order to facilitate the development process, there is an Expressjs application located in the rest-api directory. This application provides a server that exposes a POST request endpoint (/sqs/conversionRequest) which can be used to send messages to the SQS queue.
 
-In a production environment, I would use AWS API Gateway which has a direct integration with AWS SQS to expose these endpoints and save on the costs of a running REST Api server. The Nestjs application could be hosted on EC2 instances with the required memory & CPU limits, and controlled by an Auto Scaling Group that scales up to a maximum of 3 instances. The scaling metric could be either the average memory or CPU utilization of the EC2 instances. Or even use AWS Lambda for handling the messages.
+If I were deploying this application in a live setting, I would leverage the benefits of AWS services to optimize the performance and reduce costs. For example, I could use AWS API Gateway which offers seamless integration with AWS SQS, allowing me to expose the necessary endpoints without running an expensive REST API server.
+
+To host the Nestjs application, I would utilize EC2 instances with appropriate memory and CPU limits. These instances could be managed by an Auto Scaling Group, which could automatically adjust the number of instances to maintain an optimum performance level. I could also set scaling metrics such as average memory or CPU utilization of the EC2 instances to ensure efficient resource allocation. Alternatively, I could consider using AWS Lambda to handle messages as it provides a cost-effective and scalable solution for message processing.
 
 ## Frontend
-You can access http://localhost:3000 to use a UI for the request. It's just a simple page implemented with Alpine.js and Tailwind css.
+To interact with the application, simply navigate to http://localhost:3000. The application features a user interface that allows you to submit requests easily. The UI is built using Alpine.js and Tailwind CSS, providing a clean and responsive design.
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/54335160/228325712-d7fd6e0c-cabe-4521-81d6-432b8e474780.png">
-
 
 # Prerequisites
 - Nodejs 16
 - Docker
 - docker-compose
+- An account with https://openexchangerates.org/
+
+To be able to use the exchange rate api, place a .env file in converter-api folder with the key OPEN_EX_APP_ID to set to the account's App ID.
 
 # Load testing
 ## Stress testing results
