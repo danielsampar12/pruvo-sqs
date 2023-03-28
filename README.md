@@ -4,6 +4,12 @@ This project is developed to address the coding assessment challenge provided by
 
 The assignment creates scenario where a WordPress frontend site needs to add a new functionality to allow users to get a conversion rate between 2 selected currencies. This project implements a backend service that will serve this need.
 
+# Commands
+To startup all the services run the following command
+```
+docker-compose up
+```
+
 # Solution Architecture
 
 This solution uses an AWS SQS queue to defer user requests for asynchronous processing. (Uses alpine-sqs to simulate it locally).
@@ -26,9 +32,3 @@ You can access http://localhost:3000 to use a UI for the request. It's just a si
 - docker-compose
 - An account with https://openexchangerates.org/
 
-
-# Commands
-To startup all the services run the following command
-```
-docker-compose up
-```
