@@ -6,7 +6,7 @@ The assignment creates scenario where a WordPress frontend site needs to add a n
 
 # Solution Architecture
 
-This solution uses an AWS SQS queue to defer user requests for asynchronous processing. (Uses alpine-sqs to simulate it loccaly).
+This solution uses an AWS SQS queue to defer user requests for asynchronous processing. (Uses alpine-sqs to simulate it locally).
 
 A Nestjs standalone application is used to listen on messages from the queue and process them. This is the code in the `converter-api` folder.
 
