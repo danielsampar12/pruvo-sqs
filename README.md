@@ -31,3 +31,7 @@ You can access http://localhost:3000 to use a UI for the request. It's just a si
 - Docker
 - docker-compose
 
+# Load testing
+## Stress testing results
+![73ea5152-23df-4dbf-a2c5-0d063eb6c00f](https://user-images.githubusercontent.com/54335160/228328382-4d88ac29-9a3a-4d8b-a969-60f808c8ef55.JPG)
+
