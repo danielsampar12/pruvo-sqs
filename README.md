@@ -30,5 +30,4 @@ You can access http://localhost:3000 to use a UI for the request. It's just a si
 - Nodejs 16
 - Docker
 - docker-compose
-- An account with https://openexchangerates.org/
 
