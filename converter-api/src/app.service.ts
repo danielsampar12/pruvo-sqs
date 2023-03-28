@@ -9,7 +9,7 @@ export class AppService {
   private readonly messageService: MessageService;
 
   getHello(): string {
-    return '⚡️[nest:server]';
+    return `⚡️[nest:server]: running on port:${process.env.PORT}`;
   }
 
   initSQSConsumer(): void {
