@@ -4,6 +4,8 @@ services:
     image: roribio16/alpine-sqs
     ports:
       - "9324:9324"
+    stdin_open: true
+    tty: true
     cpus: 1.0
     mem_limit: "2g"
   nest-converter:
@@ -12,6 +14,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
+    env_file:
+      - ./converter-api/.env
     depends_on:
       - sqs
     cpus: 1.0
@@ -22,6 +26,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    env_file:
+      - ./rest-api/.env
     depends_on:
       - sqs
     cpus: 1.0

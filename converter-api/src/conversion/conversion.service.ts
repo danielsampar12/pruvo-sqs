@@ -9,7 +9,7 @@ export class ConversionService {
   constructor(private readonly httpService: HttpService) {}
 
   // ! Free plan only offers requests for the base currency USD
-  private api = `https://openexchangerates.org/api/latest.json?app_id=131ceac46bda47ab82fd992662d12f7d&base=USD`;
+  private api = `https://openexchangerates.org/api/latest.json?app_id=${process.env.OPEN_EX_APP_ID}&base=USD`;
 
   private getLatestRatesByUSD(): Promise<AxiosResponse<any>> {
     return this.httpService.axiosRef.get(this.api);
