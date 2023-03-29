@@ -29,21 +29,37 @@ export class ConversionService {
 
       return Number(data.rates[currency]).valueOf();
     } catch (error) {
-      console.log('Error calling API');
+      if (
+        error?.response?.status === 429 ||
+        error?.includes('[AxiosError: Request failed with status code 429]')
+      ) {
+        throw new Error(
+          'Your App Id has been restricted because there was too many requests. Please add a valid App Id in the /converter-api/.env file with the key OPEN_EX_APP_ID.',
+        );
+      }
+
       throw new Error(error);
     }
   }
 
   async convertToUSD(amount: number, currency: string): Promise<number> {
-    const rate = await this.getCurrencyExchangeRateRelativeToUSD(currency);
+    try {
+      const rate = await this.getCurrencyExchangeRateRelativeToUSD(currency);
 
-    return amount / rate;
+      return amount / rate;
+    } catch (error) {
+      throw Error(error);
+    }
   }
 
   async convertFromUSD(amount: number, currency: string): Promise<number> {
-    const rate = await this.getCurrencyExchangeRateRelativeToUSD(currency);
+    try {
+      const rate = await this.getCurrencyExchangeRateRelativeToUSD(currency);
 
-    return rate * amount;
+      return rate * amount;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async handleConversionRequest({
@@ -53,15 +69,19 @@ export class ConversionService {
   }: ConversionRequestMessage) {
     if (fromCurrency === toCurrency) return amount;
 
-    if (fromCurrency === 'USD') {
-      return await this.convertFromUSD(amount, toCurrency);
-    }
+    try {
+      if (fromCurrency === 'USD') {
+        return await this.convertFromUSD(amount, toCurrency);
+      }
 
-    if (toCurrency === 'USD') {
-      return await this.convertToUSD(amount, fromCurrency);
-    }
+      if (toCurrency === 'USD') {
+        return await this.convertToUSD(amount, fromCurrency);
+      }
 
-    const amountInUSD = await this.convertToUSD(amount, fromCurrency);
-    return await this.convertFromUSD(amountInUSD, toCurrency);
+      const amountInUSD = await this.convertToUSD(amount, fromCurrency);
+      return await this.convertFromUSD(amountInUSD, toCurrency);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
