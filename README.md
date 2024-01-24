@@ -28,7 +28,6 @@ To interact with the application, simply navigate to http://localhost:3000. The 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/54335160/228325712-d7fd6e0c-cabe-4521-81d6-432b8e474780.png">
 
 # Prerequisites
-- Nodejs 16
 - Docker
 - docker-compose
 - An account with https://openexchangerates.org/
